@@ -12,34 +12,29 @@ class Categories{
     create(req, res){
         const { name } = req.body
 
-        if(name){
-            knex('categories').insert({ name })
-            .then(result => res.json({ message: 'Categoria cadastrada com sucesso!' }))
-            .catch(error => console.log(error))
-        }
-        else{
-            return res.status(400).json({ message: 'Nome não informado, informe-o por favor!' })
-        }
-    }
+        if(!name) return res.json({ message: 'Informe o nome da categoria!' })
 
+        knex('categories')
+            .insert({ name })
+            .then(() => res.json({ message: 'Categoria cadastrada com sucesso!' }))
+            .catch(error => console.log(error))
+    }
     update(req, res){
-        const name = req.body
+        const { name } = req.body
 
         knex('categories')
             .update(name)
             .where('id', req.params.id)
-        .then(result => res.json({ message: 'Categoria Atualizada com sucesso!' }))
-        .catch(error => console.log(error))
+            .then(() => res.json({ message: 'Categoria Atualizada com sucesso!' }))
+            .catch(error => console.log(error))
     }
 
     delete(req, res){
-
         knex('categories')
             .where('id', req.params.id)
             .delete()
-        .then(result => res.json({ message: 'Categoria excluída com sucesso!' }))
-        .catch(error => console.log(error))
-
+            .then(() => res.json({ message: 'Categoria excluída com sucesso!' }))
+            .catch(error => console.log(error))
     }
 }
 

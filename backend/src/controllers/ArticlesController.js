@@ -3,8 +3,9 @@ const knex = require('../database/connection')
 class Articles {
     async index(req, res) {
         const articles = await knex('articles')
-            .select('articles.id', 'articles.title', 'articles.imageUrl',
-                'articles.content', 'articles.createdAt', 'articles.categoriaId as categoryId',
+            .select(
+                'articles.id', 'articles.title', 'articles.imageUrl',
+                'articles.content', 'articles.createdAt', 'articles.categoryId',
                 'categories.name as categoryName')
             .join('categories', 'categories.id', '=', 'articles.categoriaId')
             .orderBy('id')
@@ -46,16 +47,16 @@ class Articles {
         res.json(articles)
     }
     create(req, res) {
-        const { title, categoriaId, imageUrl, content } = req.body
+        const { title, categoryId, imageUrl, content } = req.body
 
-        if (!title) res.status(400).json({ message: 'Título não informado, Informe-o por favor!' })
-        if (!categoriaId) res.status(400).json({ message: 'Categoria não informada, Informe-a por favor!' })
-        if(!imageUrl) res.status(400).json({ message: 'Imagem não informada, Informe-a por favor!' })
-        if (!content) res.status(400).json({ message: 'Conteúdo não informado, Informe-o por favor!' })
+        if (!title) return res.status(400).json({ message: 'Título não informado, Informe-o por favor!' })
+        if (!categoryId) return res.status(400).json({ message: 'Categoria não informada, Informe-a por favor!' })
+        if(!imageUrl) return res.status(400).json({ message: 'Imagem não informada, Informe-a por favor!' })
+        if (!content) return res.status(400).json({ message: 'Conteúdo não informado, Informe-o por favor!' })
 
         const article = {
             title,
-            categoriaId,
+            categoryId,
             imageUrl,
             content,
             createdAt: new Date().toLocaleString()
@@ -63,25 +64,24 @@ class Articles {
 
         knex('articles')
             .insert(article)
-            .then(result => res.json({ message: 'Artigo postado com sucesso!' }))
+            .then(() => res.json({ message: 'Artigo postado com sucesso!' }))
             .catch(error => console.log(error))
     }
     update(req, res) {
-        const { title, categoriaId, imageUrl, content } = req.body
+        const { title, categoryId, imageUrl, content } = req.body
 
         const article = {
             title,
-            categoriaId,
+            categoryId,
             imageUrl,
             content,
         }
-        
+
         knex('articles')
             .update(article)
             .where('id', req.params.id)
             .then(result => res.json({ message: 'Artigo atualizado com sucesso!' }))
             .catch(error => console.log(error))
-
     }
     delete(req, res) {
         knex('articles')
