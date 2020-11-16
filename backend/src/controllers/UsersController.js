@@ -17,7 +17,7 @@ class Users {
 
         knex('users')
             .insert({ email, password: hash, admin })
-            .then(result => res.json({ message: 'Usuário cadastrado com sucesso!' }))
+            .then(() => res.json({ message: 'Usuário cadastrado com sucesso!' }))
             .catch(error => console.log(error))
     }
     async login(req, res){
