@@ -6,7 +6,7 @@ module.exports = middleware => {
         if(req.headers.token){
             jwt.verify(req.headers.token, process.env.SECRET, (error, encoded) => {
                 if(error){
-                    return res.status(500).send({ message: 'Token inválido!' })
+                    return res.send({ message: 'Token inválido!' })
                 }
                 else{
                     middleware(req, res, next)
@@ -14,7 +14,7 @@ module.exports = middleware => {
             })
         }
         else{
-            res.status(401).send({ message : 'Usuário não está autenticado!' })
+            res.send({ message : 'Usuário não está autenticado!' })
         }
     }
 }

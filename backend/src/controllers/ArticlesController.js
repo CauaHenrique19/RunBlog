@@ -3,11 +3,10 @@ const knex = require('../database/connection')
 class Articles {
     async index(req, res) {
         const articles = await knex('articles')
-            .select(
-                'articles.id', 'articles.title', 'articles.imageUrl',
-                'articles.content', 'articles.createdAt', 'articles.categoryId',
+            .select('articles.id', 'articles.title', 'articles.imageUrl',
+                'articles.content', 'articles.createdAt', 'articles.categoryid as categoryId',
                 'categories.name as categoryName')
-            .join('categories', 'categories.id', '=', 'articles.categoriaId')
+            .join('categories', 'categories.id', '=', 'articles.categoryid')
             .orderBy('id')
 
         const comments = await knex('comments')
@@ -47,16 +46,16 @@ class Articles {
         res.json(articles)
     }
     create(req, res) {
-        const { title, categoryId, imageUrl, content } = req.body
+        const { title, categoryid, imageUrl, content } = req.body
 
         if (!title) return res.status(400).json({ message: 'Título não informado, Informe-o por favor!' })
-        if (!categoryId) return res.status(400).json({ message: 'Categoria não informada, Informe-a por favor!' })
+        if (!categoryid) return res.status(400).json({ message: 'Categoria não informada, Informe-a por favor!' })
         if(!imageUrl) return res.status(400).json({ message: 'Imagem não informada, Informe-a por favor!' })
         if (!content) return res.status(400).json({ message: 'Conteúdo não informado, Informe-o por favor!' })
 
         const article = {
             title,
-            categoryId,
+            categoryid,
             imageUrl,
             content,
             createdAt: new Date().toLocaleString()
@@ -68,11 +67,11 @@ class Articles {
             .catch(error => console.log(error))
     }
     update(req, res) {
-        const { title, categoryId, imageUrl, content } = req.body
+        const { title, categoryid, imageUrl, content } = req.body
 
         const article = {
             title,
-            categoryId,
+            categoryid,
             imageUrl,
             content,
         }
