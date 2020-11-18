@@ -1,0 +1,16 @@
+.articles{
+    height: 100vh;
+}
+.container{
+    height: 90vh;
+    display: flex;
+    background-color: #fafafa;
+}
+.main{
+    max-width: calc(100vw - 300px);
+    width: 100%;
+    overflow: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -1,0 +1,78 @@
+.login{
+    display: flex;
+    height: 100vh;
+}
+.form-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+.login-logo{
+    margin-bottom: 30px;
+}
+.login .email-container, .password-container{
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0px;
+}
+.login label{
+    font-weight: 700;
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+}
+.login input{
+    width: 335px;
+    height: 50px;
+    background-color: black;
+    border-radius: 3px;
+    border: none;
+    color: white;
+    outline: none;
+    font-weight: 500;
+    padding: 0px 15px;
+    border-left: 6px solid blueviolet;
+    font-size: 1.5rem;
+    transition: box-shadow 0.2s;
+}
+.login input:focus{
+    box-shadow: 0px 0px 26px 0px rgba(137, 43, 226, 0.342);
+}
+.login input::placeholder{
+    color: white;
+}
+.login button{
+    width: 335px;
+    height: 50px;
+    background-color: black;
+    border-radius: 3px;
+    border: none;
+    color: white;
+    outline: none;
+    font-weight: 700;
+    padding: 0px 15px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: box-shadow 0.2s;
+    margin: 20px 0;
+}
+.login button:hover{
+    box-shadow: 0px 0px 26px 0px rgba(137, 43, 226, 0.342);
+}
+.register{
+    display: flex;
+    align-items: center;
+}
+.register a{
+    text-decoration: none;
+    font-weight: 400;
+    margin: 0px 25px;
+    color: black;
+    font-size: 0.8rem;
+}
+.stick{
+    width: 37px;
+    height: 5px;
+    background-color: #fafafa;
+}
