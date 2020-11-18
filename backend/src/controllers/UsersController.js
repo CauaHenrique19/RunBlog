@@ -7,12 +7,12 @@ class Users {
     create(req, res){
         const { email, name, password, confirmPassword } = req.body
 
-        if(!email) return res.status(400).json({ message: 'E-mail não informado, Informe-o por favor!' })
-        if(!name) return res.status(400).json({ message: 'Nome não informado, Informe-o por favor!' })
-        if(!password) return res.status(400).json({ message: 'Senha não informada, Informe-a por favor!' })
-        if(!confirmPassword) return res.status(400).json({ message: 'Confirmação de senha não informada, Informe-a por favor!' })
-        if(password !== confirmPassword) return res.status(400).json({ message: 'Senhas não conferem.' })
-        
+        if(!email) return res.json({ message: 'E-mail não informado, Informe-o por favor!' })
+        if(!name) return res.json({ message: 'Nome não informado, Informe-o por favor!' })
+        if(!password) return res.json({ message: 'Senha não informada, Informe-a por favor!' })
+        if(!confirmPassword) return res.json({ message: 'Confirmação de senha não informada, Informe-a por favor!' })
+        if(password !== confirmPassword) return res.json({ message: 'Senhas não conferem.' })
+
         const salt = bcrypt.genSaltSync(10)
         const hash = bcrypt.hashSync(password, salt)
 
@@ -24,8 +24,8 @@ class Users {
     async login(req, res){
         const { email, password } = req.body
 
-        if(!email) res.json({ message: 'Email não informado, informe-o por favor!' })
-        if(!password) res.json({ message: 'Senha não informada, informe-a por favor!' })
+        if(!email) res.json({ auth: false, message: 'Email não informado, informe-o por favor!' })
+        if(!password) res.json({ auth: false, message: 'Senha não informada, informe-a por favor!' })
 
         const user = await knex('users')
             .select('*')
@@ -33,7 +33,7 @@ class Users {
             .first()
 
         if(!user){
-            res.json({ message: 'Usuário não encontrado.' })
+            res.json({ auth: false, message: 'Usuário não encontrado.' })
         }
         else{
             if(bcrypt.compareSync(password, user.password)){
@@ -43,7 +43,7 @@ class Users {
                 res.json({ auth: true, token, user })
             }
             else{
-                res.json({ message: 'Senhas não conferem.' })
+                res.json({ auth: false, message: 'Senhas não conferem.' })
             }
         }
     }

@@ -30,6 +30,7 @@ routes.put('/articles/:id', admin(auth(articles.update)))
 routes.delete('/articles/:id', admin(auth(articles.delete)))
 
 routes.get('/likes', auth(likes.index))
+routes.get('/likes/:userId', auth(likes.show))
 routes.post('/likes', auth(likes.create))
 routes.delete('/likes/:id', auth(likes.delete))
 

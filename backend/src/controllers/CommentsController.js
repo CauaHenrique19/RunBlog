@@ -27,8 +27,8 @@ class Comments{
 
         knex('comments')
             .insert(like)
-        .then(result => res.json({ message: 'Comentário realizado com sucesso!' }))
-        .catch(error => console.log(error.message))
+            .then(result => res.json({ message: 'Comentário realizado com sucesso!' }))
+            .catch(error => console.log(error.message))
     }
     delete(req, res){
         knex('comments')

@@ -1,15 +1,17 @@
 import React, { useState, useContext } from 'react'
 import { useHistory, Link } from 'react-router-dom'
+
 import api from '../../services/api'
 
-import { UserContext } from '../../context/user'
+import Message from '../../components/Message'
+import { Context } from '../../context/context'
 
 import logo from '../../assets/logo.png'
 import './style.css'
 
 const Login = () => {
 
-    const { setUser, setToken } = useContext(UserContext)
+    const { setUser, setToken } = useContext(Context)
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -23,11 +25,16 @@ const Login = () => {
 
         api.post('login', login)
             .then(res => {
-                localStorage.setItem('token', res.data.token)
-                localStorage.setItem('runblog_user', JSON.stringify(res.data.user))
-                setToken(res.data.token)
-                setUser(res.data.user)
-                history.push('/articles')
+                if(res.data.auth){
+                    localStorage.setItem('token', res.data.token)
+                    localStorage.setItem('runblog_user', JSON.stringify(res.data.user))
+                    setToken(res.data.token)
+                    setUser(res.data.user)
+                    history.push('/articles')
+                }
+                else{
+                    console.log('Não Permitido')
+                }
             })
             .catch(error => console.log(error))
     }

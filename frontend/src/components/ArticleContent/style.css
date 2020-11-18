@@ -1,6 +1,6 @@
 .article{
     width: 70%;
-    overflow-y: auto;
+    margin-top: 50px;
 }
 .header-article{
     display: flex;
@@ -54,7 +54,7 @@
     font-size: 1.5rem;
     font-weight: 400;
 }
-.btn-likes.liked ion-icon{
+.likes.liked ion-icon, .likes.liked p{
     color: red;
 }
 .buttons-container{
@@ -74,9 +74,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: box-shadow 0.2s;
 }
 .buttons-container button:nth-child(1){
     margin-right: 5px;
+}
+.buttons-container button:hover{
+    box-shadow: 0px 0px 26px 0px rgba(137, 43, 226, 0.342);
 }
 .buttons-container button ion-icon{
     color: white;
@@ -103,6 +107,113 @@
 }
 .content-article::-webkit-scrollbar-thumb{
     background-color: black;
+}
+.comment-form{
+    width: 100%;
+    height: 400px;
+    margin-top: 25px;
+}
+.comment-form h1{
+    color: black;
+    margin-bottom: 15px;
+}
+.comment-form textarea{
+    width: 100%;
+    height: 300px;
+    resize: none;
+    margin-bottom: 10px;
+    border: none;
+    background-color: black;
+    border-radius: 5px;
+    color: white;
+    padding: 15px;
+    font-weight: 400;
+    font-size: 1.3rem;
+    outline: none;
+    transition: box-shadow 0.2s;
+}
+.comment-form textarea::placeholder{
+    color: white;
+}
+.comment-form textarea:focus{
+    box-shadow: 0px 0px 26px 0px rgba(137, 43, 226, 0.342);
+}
+.comment-form button{
+    width: 100%;
+    height: 50px;
+    margin-bottom: 50px;
+    border: none;
+    background-color: black;
+    color: white;
+    font-weight: 700;
+    font-size: 1.5rem;
+    outline: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: box-shadow 0.2s;
+}
+.comment-form button:hover{
+    box-shadow: 0px 0px 26px 0px rgba(137, 43, 226, 0.342);
+}
+.coments-container{
+    margin-top: 50px;
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 50px;
+}
+.coments-header{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid rgba(202, 202, 202, 0.178);
+}
+.coments-header h1{
+    color: black;
+}
+.coments-header ion-icon{
+    cursor: pointer;
+    color: black;
+    font-size: 2rem;
+}
+.coments{
+    display: block;
+}
+.coment{
+    width: 100%;
+    background-color: rgb(235, 235, 235);
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+.coment.my{
+    border: 2px solid black;
+}
+.coment img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    margin-right: 15px;
+}
+.coment .header-coment{
+    display: flex;
+    align-items: center;
+}
+.header-coment h1, .header-coment p{
+    color: black;
+    margin-top: 5px;
+}
+.content-coment{
+    margin-top: 15px;
+    margin-left: 65px;
+    margin-right: 15px;
+}
+.content-coment p{
+    text-align: justify;
+    color: black;
 }
 @media(max-width: 1200px){
     .article-content{

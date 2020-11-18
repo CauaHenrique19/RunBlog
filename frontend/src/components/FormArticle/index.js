@@ -1,49 +1,61 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useContext } from 'react'
 import { Editor } from '@tinymce/tinymce-react'
-import { UserContext } from '../../context/user'
+import { Context } from '../../context/context'
 
 import api from '../../services/api'
 import './style.css'
 
-const FormArticle = ({ functionsForm, article, handleForm }) => {
+const FormArticle = ({ handleForm }) => {
 
-    const [categories, setCategories] = useState([])
-    const { user, token } = useContext(UserContext)
+    const { setArticleId, setTitle, setCategoryId, setImageUrl, setContentArticle } = useContext(Context)
+    const { articleId, title, categoryId, imageUrl, contentArticle } = useContext(Context)
+    const { categories } = useContext(Context)
+    const { headers } = useContext(Context)
 
-    const headers = {
-        headers: {
-            token: token,
-            admin: user.admin,
-            user_id: user.id
-        }
+    const article = {
+        id: articleId,
+        title,
+        categoryid: parseInt(categoryId),
+        imageUrl,
+        content: contentArticle
     }
 
-    useEffect(() => {
-        api.get('categories', headers)
-            .then((res) => setCategories(res.data))
-    }, [])
+    function handleForm(e) {
+        e.preventDefault();
+
+        if (article.id) {
+            api.put(`articles/${article.id}`, article, headers)
+                .then(res => console.log(res.data))
+                .catch(error => console.log(error))
+        }
+        else {
+            api.post('articles', article, headers)
+                .then(res => console.log(res.data))
+                .catch(error => console.log(error))
+        }
+    }
 
     return (
         <form className="form-article" onSubmit={handleForm} >
             <div className="input-container">
-                <input type="hidden" name="id" value={article.id} onChange={functionsForm.handleId} />
+                <input type="hidden" name="id" value={articleId} onChange={(e) => setArticleId(e.target.value)} />
                 <div className="input-title-container">
                     <label htmlFor="title">Título</label>
                     <input type="text"
-                        value={article.title}
+                        value={title}
                         name="title"
                         id="title"
                         placeholder="Título..."
-                        onChange={functionsForm.handleTitle}
+                        onChange={(e) => setTitle(e.target.value)}
                     />
                 </div>
                 <div className="input-category-id-container">
                     <label htmlFor="category-id">Categoria</label>
                     <select
-                        value={article.categoriaId}
+                        value={categoryId}
                         name="categoriaId"
                         id="category-id"
-                        onChange={functionsForm.handleCategoryId}
+                        onChange={(e) => setCategoryId(e.target.value)}
                     >
                         <option value="">Selecione uma categoria</option>
                         {
@@ -57,22 +69,22 @@ const FormArticle = ({ functionsForm, article, handleForm }) => {
             <div className="input-image-url-container">
                 <label htmlFor="image-url">Url da Imagem</label>
                 <input type="text"
-                    value={article.imageUrl}
+                    value={imageUrl}
                     name="imageUrl"
                     id="image-url"
                     placeholder="Url da imagem..."
-                    onChange={functionsForm.handleImageUrl}
+                    onChange={(e) => setImageUrl(e.target.value)}
                 />
             </div>
             <Editor
-                value={article.content}
+                value={contentArticle}
                 init={{
                     height: 500,
                     plugins: [
                         'advlist autolink link image lists print preview hr searchreplace wordcount fullscreen insertdatetime media save table paste emoticons'
                     ],
                 }}
-                onEditorChange={functionsForm.handleContent}
+                onEditorChange={(e) => setContentArticle(e)}
             />
             <button type="submit" className="btn-new-article">Salvar</button>
         </form>

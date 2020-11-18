@@ -31,8 +31,9 @@
 }
 .content-profile{
     margin-left: 15px;
+    cursor: auto;
 }
-.content-login:hover, .content-profile:hover, .content-logout:hover{
+.content-login:hover, .content-logout:hover{
     background-color: rgba(177, 177, 177, 0.486);
 }
 .content-profile img{
