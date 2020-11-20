@@ -3,10 +3,11 @@ import { useHistory, Link } from 'react-router-dom'
 
 import api from '../../services/api'
 
-import Message from '../../components/Message'
+//import Message from '../../components/Message'
 import { Context } from '../../context/context'
 
 import logo from '../../assets/logo.png'
+
 import './style.css'
 
 const Login = () => {
@@ -15,7 +16,7 @@ const Login = () => {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    
+
     const history = useHistory()
 
     function handleLogin(e) {
@@ -25,14 +26,14 @@ const Login = () => {
 
         api.post('login', login)
             .then(res => {
-                if(res.data.auth){
+                if (res.data.auth) {
                     localStorage.setItem('token', res.data.token)
                     localStorage.setItem('runblog_user', JSON.stringify(res.data.user))
                     setToken(res.data.token)
                     setUser(res.data.user)
                     history.push('/articles')
                 }
-                else{
+                else {
                     console.log('Não Permitido')
                 }
             })

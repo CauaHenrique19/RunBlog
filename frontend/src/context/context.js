@@ -5,19 +5,49 @@ export const Context = createContext()
 
 const ContextProvider = ({ children }) => {
 
-    //localStorage.setItem('runblog_user', {})
-
     const userStorage = JSON.parse(localStorage.getItem('runblog_user')) ? JSON.parse(localStorage.getItem('runblog_user')) : ''
+    const tokenStorage = localStorage.getItem('token') ? localStorage.getItem('token') : ''
 
     const [user, setUser] = useState(userStorage)
-    const [token, setToken] = useState(localStorage.getItem('token'))
+    const [token, setToken] = useState(tokenStorage)
+
     const [myLikes, setMyLikes] = useState([])
 
     const [message, setMessage] = useState('')
     const [article, setArticle] = useState()
 
+    const [headers, setHeaders] = useState({
+        headers: {
+            token: token,
+            admin: user.admin,
+            user_id: user.id
+        }
+    })
+
+    useEffect(() => {
+        setHeaders({
+            headers: {
+                token: token,
+                admin: user.admin,
+                user_id: user.id
+            }
+        })
+    }, [token, user])
+
     const [articles, setArticles] = useState([])
     const [categories, setCategories] = useState([])
+
+    useEffect(() => {
+        api.get('categories', headers)
+            .then((res) => setCategories(res.data))
+            .catch(error => console.log(error))
+    }, [headers])
+
+    useEffect(() => {
+        api.get('articles', headers)
+            .then(res => setArticles(res.data))
+            .catch(error => console.log(error))
+    }, [headers])
 
     const [articleId, setArticleId] = useState()
     const [title, setTitle] = useState('')
@@ -27,45 +57,20 @@ const ContextProvider = ({ children }) => {
 
     const [coment, setComent] = useState('')
 
-    const config = {
-        headers: {
-            'Content-Type': 'application/json',
-            'token': token,
-            'admin': user.admin,
-            'user_id': user.id
-        }
-    }
-
-    const [headers, setHeaders] = useState(config)
-
     const [viewContent, setViewContent] = useState(false)
     const [viewForm, setViewForm] = useState(false)
     const [viewNewArticles, setViewNewArticles] = useState(true)
     const [viewComents, setViewComents] = useState(true)
 
-    useEffect(() => {
-        api.get('articles', headers)
-            .then(res => setArticles(res.data))
-            .catch(error => console.log(error))
-
-        api.get('categories', headers)
-            .then((res) => setCategories(res.data))
-            .catch(error => console.log(error))
-
-        api.get(`likes/${user.id}`, headers)
-            .then(res => setMyLikes(res.data))
-            .catch(error => console.log(error))
-    }, [])
-
-    return(
-        <Context.Provider value={{ 
-            user, setUser, 
-            token, setToken, 
-            article, setArticle, 
-            articleId, setArticleId, 
-            title, setTitle, 
+    return (
+        <Context.Provider value={{
+            user, setUser,
+            token, setToken,
+            article, setArticle,
+            articleId, setArticleId,
+            title, setTitle,
             categoryId, setCategoryId,
-            imageUrl, setImageUrl, 
+            imageUrl, setImageUrl,
             contentArticle, setContentArticle,
             headers, setHeaders,
             viewContent, setViewContent,
@@ -76,7 +81,7 @@ const ContextProvider = ({ children }) => {
             coment, setComent,
             viewComents, setViewComents,
             myLikes, setMyLikes,
-            message, setMessage
+            message, setMessage,
         }}>
             {children}
         </Context.Provider>

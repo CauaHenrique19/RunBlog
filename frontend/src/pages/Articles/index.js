@@ -15,8 +15,6 @@ const ViewArticles = () => {
     const { user } = useContext(Context)
     const { viewForm, setViewForm, viewNewArticles, setViewNewArticles, viewContent } = useContext(Context)
 
-    console.log(user)
-
     function handleClickNewArticle() {
         setViewNewArticles(false)
         setViewForm(true)
@@ -28,9 +26,9 @@ const ViewArticles = () => {
             <div className="container">
                 <SideBar />
                 <div className="main">
-                    { viewContent && <ArticleContent /> }
-                    { viewNewArticles && user.admin ? <NewArticle handleNewArticle={() => handleClickNewArticle()} /> : '' }
-                    { viewForm && <FormArticle /> }
+                    {viewContent && <ArticleContent />}
+                    {viewNewArticles && user.admin ? <NewArticle handleNewArticle={() => handleClickNewArticle()} /> : ''}
+                    {viewForm && <FormArticle />}
                 </div>
             </div>
         </div>

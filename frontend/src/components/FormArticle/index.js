@@ -5,7 +5,7 @@ import { Context } from '../../context/context'
 import api from '../../services/api'
 import './style.css'
 
-const FormArticle = ({ handleForm }) => {
+const FormArticle = () => {
 
     const { setArticleId, setTitle, setCategoryId, setImageUrl, setContentArticle } = useContext(Context)
     const { articleId, title, categoryId, imageUrl, contentArticle } = useContext(Context)

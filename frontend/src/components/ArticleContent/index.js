@@ -13,7 +13,7 @@ const ArticleContent = () => {
     const [liked, setLiked] = useState(false)
 
     const { setArticleId, setTitle, setCategoryId, setImageUrl, setContentArticle } = useContext(Context)
-    const { user, article, headers, myLikes } = useContext(Context)
+    const { user, article, headers } = useContext(Context)
     const { setViewContent, setViewForm, setViewNewArticles, setViewComents, viewComents } = useContext(Context)
     const { coment, setComent } = useContext(Context)
 
@@ -29,7 +29,7 @@ const ArticleContent = () => {
     }
 
     useEffect(() => {
-        const isLiked = article.correspondingLikes.find(like => like.userId == user.id)
+        const isLiked = article.correspondingLikes.find(like => like.userId === user.id)
 
         if(isLiked){
             setLiked(true)
@@ -38,7 +38,7 @@ const ArticleContent = () => {
             setLiked(false)
         }
         
-    }, [article])
+    }, [article, user])
 
     function handleDelete() {
         api.delete(`articles/${article.id}`, headers)
@@ -63,7 +63,7 @@ const ArticleContent = () => {
             userId: user.id,
             articleId: article.id
         }
-        const isLiked = article.correspondingLikes.find(like => like.userId == user.id)
+        const isLiked = article.correspondingLikes.find(like => like.userId === user.id)
         if(liked){
             api.delete(`likes/${isLiked.id}`, headers)
                 .then(res => {
@@ -141,7 +141,7 @@ const ArticleContent = () => {
                 {
                     viewComents &&
                     article.correspondingComments.map(coment => (
-                        <div key={coment.id} className={ coment.userId == user.id ? 'coment my' : 'coment' }>
+                        <div key={coment.id} className={ coment.userId === user.id ? 'coment my' : 'coment' }>
                             <div className="coment">
                                 <div className="header-coment">
                                     <img src={userImage} alt={coment.userName} className="img-user" />

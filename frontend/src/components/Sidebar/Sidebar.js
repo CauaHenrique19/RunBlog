@@ -15,7 +15,8 @@ const SideBar = () => {
             </div>
             <h1>Artigos</h1>
             <ul>
-                {
+                {   
+                    articles.length > 0 &&
                     articles.map(article => (
                         <li key={article.id}
                             onClick={() => {

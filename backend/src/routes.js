@@ -24,7 +24,7 @@ routes.post('/categories', admin(auth(categories.create)))
 routes.put('/categories/:id', admin(auth(categories.update)))
 routes.delete('/categories/:id', admin(auth(categories.delete)))
 
-routes.get('/articles', auth(articles.index))
+routes.get('/articles',  auth(articles.index))
 routes.post('/articles', admin(auth(articles.create)))
 routes.put('/articles/:id', admin(auth(articles.update)))
 routes.delete('/articles/:id', admin(auth(articles.delete)))
