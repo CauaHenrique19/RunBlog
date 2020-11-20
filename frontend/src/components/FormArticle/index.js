@@ -79,10 +79,10 @@ const FormArticle = () => {
             <Editor
                 value={contentArticle}
                 init={{
-                    height: 500,
+                    height: 450,
                     plugins: [
                         'advlist autolink link image lists print preview hr searchreplace wordcount fullscreen insertdatetime media save table paste emoticons'
-                    ],
+                    ]
                 }}
                 onEditorChange={(e) => setContentArticle(e)}
             />

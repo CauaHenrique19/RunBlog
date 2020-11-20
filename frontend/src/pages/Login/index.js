@@ -1,18 +1,17 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { useHistory, Link } from 'react-router-dom'
 
 import api from '../../services/api'
 
-//import Message from '../../components/Message'
+import Message from '../../components/Message'
 import { Context } from '../../context/context'
 
 import logo from '../../assets/logo.png'
-
 import './style.css'
 
 const Login = () => {
 
-    const { setUser, setToken } = useContext(Context)
+    const { setUser, setToken, message, setMessage } = useContext(Context)
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -26,7 +25,7 @@ const Login = () => {
 
         api.post('login', login)
             .then(res => {
-                if (res.data.auth) {
+                if (res.data.auth){
                     localStorage.setItem('token', res.data.token)
                     localStorage.setItem('runblog_user', JSON.stringify(res.data.user))
                     setToken(res.data.token)
@@ -34,16 +33,23 @@ const Login = () => {
                     history.push('/articles')
                 }
                 else {
-                    console.log('Não Permitido')
+                    setMessage(res.data.message)
                 }
             })
             .catch(error => console.log(error))
     }
 
+    useEffect(() => {
+        setTimeout(() => {
+            setMessage('')
+        }, 5000)
+    }, [message])
+    
     return (
         <div className="login">
             <div className="form-container">
                 <img src={logo} alt="RunBlog" className="login-logo" />
+                { message && <Message  /> }
                 <form onSubmit={handleLogin}>
                     <div className="email-container">
                         <label htmlFor="email">E-mail</label>

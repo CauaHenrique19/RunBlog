@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 
 import { Context } from '../../context/context'
 
-import Header from '../../components/Header/Header'
+import Header from '../../components/Header'
 import SideBar from '../../components/Sidebar/Sidebar'
 import ArticleContent from '../../components/ArticleContent'
 import NewArticle from '../../components/newArticle'

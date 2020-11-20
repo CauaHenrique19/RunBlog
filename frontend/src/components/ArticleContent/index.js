@@ -37,7 +37,6 @@ const ArticleContent = () => {
         else{
             setLiked(false)
         }
-        
     }, [article, user])
 
     function handleDelete() {
