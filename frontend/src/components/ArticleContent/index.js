@@ -12,6 +12,7 @@ const ArticleContent = () => {
     const [viewFormComent, setViewFormComent] = useState(false)
     const [liked, setLiked] = useState(false)
 
+    const { articles, setArticles } = useContext(Context)
     const { setArticleId, setTitle, setCategoryId, setImageUrl, setContentArticle } = useContext(Context)
     const { user, article, headers } = useContext(Context)
     const { setViewContent, setViewForm, setViewNewArticles, setViewComents, viewComents } = useContext(Context)
@@ -41,7 +42,14 @@ const ArticleContent = () => {
 
     function handleDelete() {
         api.delete(`articles/${article.id}`, headers)
-            .then(res => console.log(res.data))
+            .then(res => {
+                const index = articles.indexOf(articles.find(articleFind => articleFind.id === article.id))
+                articles.splice(index, 1)
+                setArticles(articles)
+                setViewForm(false)
+                setViewContent(false)
+                setViewNewArticles(true)
+            })
             .catch(error => console.log(error))
     }
 

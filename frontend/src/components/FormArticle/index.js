@@ -8,7 +8,7 @@ import './style.css'
 const FormArticle = () => {
 
     const { setArticleId, setTitle, setCategoryId, setImageUrl, setContentArticle } = useContext(Context)
-    const { setViewContent, setViewForm } = useContext(Context)
+    const { setViewContent, setViewForm, setViewNewArticles } = useContext(Context)
     const { articleId, title, categoryId, imageUrl, contentArticle } = useContext(Context)
     const { categories, articles, setArticles } = useContext(Context)
     const { headers } = useContext(Context)
@@ -44,7 +44,14 @@ const FormArticle = () => {
         }
         else {
             api.post('articles', article, headers)
-                .then(res => console.log(res.data))
+                .then(res => {
+                    const returnedArticle = res.data.article
+                    articles.push(returnedArticle)
+                    setArticles(articles)
+                    setViewForm(false)
+                    setViewContent(false)
+                    setViewNewArticles(true)
+                })
                 .catch(error => console.log(error))
         }
     }
