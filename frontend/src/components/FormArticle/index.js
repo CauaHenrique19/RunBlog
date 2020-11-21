@@ -8,8 +8,9 @@ import './style.css'
 const FormArticle = () => {
 
     const { setArticleId, setTitle, setCategoryId, setImageUrl, setContentArticle } = useContext(Context)
+    const { setViewContent, setViewForm } = useContext(Context)
     const { articleId, title, categoryId, imageUrl, contentArticle } = useContext(Context)
-    const { categories } = useContext(Context)
+    const { categories, articles, setArticles } = useContext(Context)
     const { headers } = useContext(Context)
 
     const article = {
@@ -25,7 +26,20 @@ const FormArticle = () => {
 
         if (article.id) {
             api.put(`articles/${article.id}`, article, headers)
-                .then(res => console.log(res.data))
+                .then(res => {
+                    const articleInArray = articles.find(articleFind => articleFind.id === article.id)
+                    const index = articles.indexOf(articleInArray)
+
+                    articleInArray.title = article.title
+                    articleInArray.categoryId = article.categoryid
+                    articleInArray.imageUrl = article.imageUrl
+                    articleInArray.content = article.content
+                    articles.splice(index, 1, articleInArray)
+
+                    setArticles(articles)
+                    setViewForm(false)
+                    setViewContent(true)
+                })
                 .catch(error => console.log(error))
         }
         else {

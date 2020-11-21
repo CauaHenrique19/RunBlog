@@ -1,4 +1,6 @@
 const knex = require('../database/connection')
+const format = require('../utils/FormatCorrespondingValues')
+const formatDataAndHour = require('../utils/FormatDataAndHour')
 
 class Articles {
     async index(req, res) {
@@ -18,31 +20,17 @@ class Articles {
         const likes = await knex('likes')
             .select('id', 'userId', 'articleId', 'createdAt')
 
-        function includeCorresponding(corresponding){
-            return corresponding.map(corres => {
-
-                const createdAt = corres.createdAt.toLocaleString()
-                const data = createdAt.substring(0, createdAt.indexOf(" ")).split('-').reverse().join(',').replace(',', '/').replace(',', '/')
-                const hour = createdAt.substring(10, createdAt.length - 3).replace(" ", "")
-                
-                corres.createdAt = `${data} às ${hour}`
-                delete corres.articleId
-
-                return corres
-            })
-        }
-
         articles.map((article) => {
             const correspondingComments = comments.filter(comment => comment.articleId === article.id)
             const correspondingLikes = likes.filter(like => like.articleId == article.id)
 
-            article.correspondingComments = includeCorresponding(correspondingComments)
+            article.correspondingComments = format(correspondingComments)
             article.amountComments = correspondingComments.length
 
-            article.correspondingLikes = includeCorresponding(correspondingLikes)
+            article.correspondingLikes = format(correspondingLikes)
             article.amountLikes = correspondingLikes.length
 
-            article.createdAt = article.createdAt.toLocaleString()
+            article.createdAt = formatDataAndHour(article.createdAt)
         })
 
         res.json(articles)
@@ -64,8 +52,18 @@ class Articles {
         }
 
         knex('articles')
-            .insert(article)
-            .then(() => res.json({ message: 'Artigo postado com sucesso!' }))
+            .insert(article, '*')
+            .then(returnedArticle => {
+
+                returnedArticle[0].amountComments = 0
+                returnedArticle[0].amountLikes = 0
+                returnedArticle[0].correspondingComments = []
+                returnedArticle[0].correspondingLikes = []
+
+                returnedArticle[0].createdAt = formatDataAndHour(returnedArticle[0].createdAt)
+
+                res.json({ message: 'Artigo postado com sucesso!', article: returnedArticle[0] })
+            })
             .catch(error => console.log(error))
     }
     update(req, res) {
