@@ -1,5 +1,5 @@
 const knex = require('../database/connection')
-const format = require('../utils/FormatCorrespondingValues')
+const formatCorrespondingValues = require('../utils/FormatCorrespondingValues')
 const formatDataAndHour = require('../utils/FormatDataAndHour')
 
 class Articles {
@@ -24,10 +24,10 @@ class Articles {
             const correspondingComments = comments.filter(comment => comment.articleId === article.id)
             const correspondingLikes = likes.filter(like => like.articleId == article.id)
 
-            article.correspondingComments = format(correspondingComments)
+            article.correspondingComments = formatCorrespondingValues(correspondingComments)
             article.amountComments = correspondingComments.length
 
-            article.correspondingLikes = format(correspondingLikes)
+            article.correspondingLikes = formatCorrespondingValues(correspondingLikes)
             article.amountLikes = correspondingLikes.length
 
             article.createdAt = formatDataAndHour(article.createdAt)
