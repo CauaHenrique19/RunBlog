@@ -78,14 +78,18 @@ const ArticleContent = () => {
                     const index = article.correspondingLikes.indexOf(isLiked)
                     article.correspondingLikes.splice(index, 1)
                     article.amountLikes -= 1
-                    setArticle(article)
+                    const indexArticle = articles.indexOf(articles.find(articleFind => articleFind.id === article.id))
+                    articles.splice(indexArticle, 1, article)
+                    setArticles(articles)
+                    setViewContent(false)
+                    setViewContent(true)
                 })
                 .catch(error => console.log(error))
         }
         else{
             api.post('likes', like, headers)
                 .then(res => {
-                    console.log(article.correspondingLikes)
+                    setLiked(true)
                 })
                 .catch(error => console.log(error))
         }
