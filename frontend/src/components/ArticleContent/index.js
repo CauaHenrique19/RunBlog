@@ -90,6 +90,7 @@ const ArticleContent = () => {
             api.post('likes', like, headers)
                 .then(res => {
                     setLiked(true)
+                    console.log(res)
                 })
                 .catch(error => console.log(error))
         }
