@@ -90,7 +90,13 @@ const ArticleContent = () => {
             api.post('likes', like, headers)
                 .then(res => {
                     setLiked(true)
-                    console.log(res)
+                    article.correspondingLikes.push(res.data.like)
+                    article.amountLikes += 1
+                    const indexArticle = articles.indexOf(articles.find(articleFind => articleFind.id === article.id))
+                    articles.splice(indexArticle, 1, article)
+                    setArticles(articles)
+                    setViewContent(false)
+                    setViewContent(true)
                 })
                 .catch(error => console.log(error))
         }
