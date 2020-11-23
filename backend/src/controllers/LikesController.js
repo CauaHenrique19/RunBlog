@@ -45,6 +45,7 @@ class Likes {
             .insert(like, '*')
             .then(result => {
                 result[0].createdAt = formatDataAndHour(result[0].createdAt)
+                delete result[0].articleId
                 res.json({ message: 'Post curtido com sucesso!', like: result[0] })
             })
             .catch(error => console.log(error.message))
