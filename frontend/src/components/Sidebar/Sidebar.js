@@ -5,7 +5,7 @@ import './Sidebar.css'
 
 const SideBar = () => {
 
-    const { articles, setViewContent, setViewForm, setViewNewArticles, setArticle } = useContext(Context)
+    const { article, articles, setViewContent, setViewForm, setViewNewArticles, setArticle } = useContext(Context)
 
     return (
         <div className="sidebar">
@@ -17,16 +17,16 @@ const SideBar = () => {
             <ul>
                 {   
                     articles.length > 0 &&
-                    articles.map(article => (
-                        <li key={article.id}
+                    articles.map(articleRender => (
+                        <li className={ article && article.id === articleRender.id ? 'selected' : '' } key={articleRender.id}
                             onClick={() => {
                                 setViewContent(true)
                                 setViewForm(false)
                                 setViewNewArticles(false)
-                                setArticle(article)
+                                setArticle(articleRender)
                             }}>
-                            <img src={article.imageUrl} alt="" />
-                            <p>{article.title}</p>
+                            <img src={articleRender.imageUrl} alt={articleRender.title} />
+                            <p>{articleRender.title}</p>
                         </li>
                     ))
                 }

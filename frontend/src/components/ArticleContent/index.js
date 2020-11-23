@@ -12,9 +12,9 @@ const ArticleContent = () => {
     const [viewFormComent, setViewFormComent] = useState(false)
     const [liked, setLiked] = useState(false)
 
-    const { articles, setArticles } = useContext(Context)
+    const { articles, setArticles, article, setArticle } = useContext(Context)
     const { setArticleId, setTitle, setCategoryId, setImageUrl, setContentArticle } = useContext(Context)
-    const { user, article, headers } = useContext(Context)
+    const { user, headers } = useContext(Context)
     const { setViewContent, setViewForm, setViewNewArticles, setViewComents, viewComents } = useContext(Context)
     const { coment, setComent } = useContext(Context)
 
@@ -75,13 +75,18 @@ const ArticleContent = () => {
             api.delete(`likes/${isLiked.id}`, headers)
                 .then(res => {
                     setLiked(false)
-                    console.log(res.data)
+                    const index = article.correspondingLikes.indexOf(isLiked)
+                    article.correspondingLikes.splice(index, 1)
+                    article.amountLikes -= 1
+                    setArticle(article)
                 })
                 .catch(error => console.log(error))
         }
         else{
             api.post('likes', like, headers)
-                .then(res => console.log(res.data))
+                .then(res => {
+                    console.log(article.correspondingLikes)
+                })
                 .catch(error => console.log(error))
         }
     }
