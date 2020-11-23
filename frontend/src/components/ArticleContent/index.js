@@ -1,18 +1,17 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { Context } from '../../context/context'
 
 import api from '../../services/api'
 
 import userImage from '../../assets/default-user-image.png'
 import './style.css'
-import { useEffect } from 'react'
 
 const ArticleContent = () => {
 
     const [viewFormComent, setViewFormComent] = useState(false)
     const [liked, setLiked] = useState(false)
 
-    const { articles, setArticles, article, setArticle } = useContext(Context)
+    const { articles, setArticles, article } = useContext(Context)
     const { setArticleId, setTitle, setCategoryId, setImageUrl, setContentArticle } = useContext(Context)
     const { user, headers } = useContext(Context)
     const { setViewContent, setViewForm, setViewNewArticles, setViewComents, viewComents } = useContext(Context)
