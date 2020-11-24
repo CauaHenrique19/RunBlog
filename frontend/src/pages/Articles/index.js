@@ -5,7 +5,7 @@ import { Context } from '../../context/context'
 import Header from '../../components/Header'
 import SideBar from '../../components/Sidebar/Sidebar'
 import ArticleContent from '../../components/ArticleContent'
-import NewArticle from '../../components/newArticle'
+import NewArticle from '../../components/NewArticle'
 import FormArticle from '../../components/FormArticle'
 
 import './style.css'
@@ -13,12 +13,7 @@ import './style.css'
 const ViewArticles = () => {
 
     const { user } = useContext(Context)
-    const { viewForm, setViewForm, viewNewArticles, setViewNewArticles, viewContent } = useContext(Context)
-
-    function handleClickNewArticle() {
-        setViewNewArticles(false)
-        setViewForm(true)
-    }
+    const { viewForm, viewNewArticles, viewContent } = useContext(Context)
 
     return (
         <div className="articles">
@@ -27,7 +22,7 @@ const ViewArticles = () => {
                 <SideBar />
                 <div className="main">
                     {viewContent && <ArticleContent />}
-                    {viewNewArticles && user.admin ? <NewArticle handleNewArticle={() => handleClickNewArticle()} /> : ''}
+                    {viewNewArticles && user.admin ? <NewArticle /> : ''}
                     {viewForm && <FormArticle />}
                 </div>
             </div>
