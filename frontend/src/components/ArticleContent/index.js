@@ -60,7 +60,15 @@ const ArticleContent = () => {
         }
         
         api.post('comments', comentary, headers)
-            .then(res => console.log(res.data))
+            .then(res => {
+                const index = articles.indexOf(articles.find(articleFind => articleFind.id === article.id))
+                article.correspondingComments.push(res.data.coment)
+                article.amountComments += 1
+                articles.splice(index, 1, article)
+                setArticles(articles)
+                setViewContent(false)
+                setViewContent(true)
+            })
             .catch(error => console.log(error))
     }
 
