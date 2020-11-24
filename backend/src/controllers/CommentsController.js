@@ -16,7 +16,7 @@ class Comments{
 
         res.json(comments)
     }
-    create(req, res){
+    async create(req, res){
         const { userId, articleId, content } = req.body
 
         const coment = {
@@ -26,10 +26,16 @@ class Comments{
             createdAt: new Date().toLocaleString()
         }
 
+        const userName = await knex('users')
+            .select('name')
+            .where('id', userId)
+            .first()
+
         knex('comments')
             .insert(coment, '*')
             .then(returnedComent => {
                 returnedComent[0].createdAt = formatDataAndHour(returnedComent[0].createdAt)
+                returnedComent[0].userName = userName.name
                 delete returnedComent[0].articleId
                 res.json({ message: 'Comentário realizado com sucesso!', coment: returnedComent[0] })
             })
