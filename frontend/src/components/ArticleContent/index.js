@@ -9,7 +9,8 @@ import './style.css'
 const ArticleContent = () => {
 
     const [viewFormComent, setViewFormComent] = useState(false)
-    const [liked, setLiked] = useState(false)
+    const [liked, setLiked] = useState()
+    const [index, setIndex] = useState()
 
     const { articles, setArticles, article } = useContext(Context)
     const { setArticleId, setTitle, setCategoryId, setImageUrl, setContentArticle } = useContext(Context)
@@ -29,20 +30,13 @@ const ArticleContent = () => {
     }
 
     useEffect(() => {
-        const isLiked = article.correspondingLikes.find(like => like.userId === user.id)
-
-        if(isLiked){
-            setLiked(true)
-        }
-        else{
-            setLiked(false)
-        }
-    }, [article, user])
+        setLiked(!!article.correspondingLikes.find(like => like.userId === user.id))
+        setIndex(articles.indexOf(articles.find(articleFind => articleFind.id === article.id)))
+    }, [article, user, articles])
 
     function handleDelete() {
         api.delete(`articles/${article.id}`, headers)
             .then(res => {
-                const index = articles.indexOf(articles.find(articleFind => articleFind.id === article.id))
                 articles.splice(index, 1)
                 setArticles(articles)
                 setViewForm(false)
@@ -61,7 +55,6 @@ const ArticleContent = () => {
         
         api.post('comments', comentary, headers)
             .then(res => {
-                const index = articles.indexOf(articles.find(articleFind => articleFind.id === article.id))
                 article.correspondingComments.push(res.data.coment)
                 article.amountComments += 1
                 articles.splice(index, 1, article)
@@ -82,11 +75,10 @@ const ArticleContent = () => {
             api.delete(`likes/${isLiked.id}`, headers)
                 .then(res => {
                     setLiked(false)
-                    const index = article.correspondingLikes.indexOf(isLiked)
-                    article.correspondingLikes.splice(index, 1)
+                    const indexLike = article.correspondingLikes.indexOf(isLiked)
+                    article.correspondingLikes.splice(indexLike, 1)
                     article.amountLikes -= 1
-                    const indexArticle = articles.indexOf(articles.find(articleFind => articleFind.id === article.id))
-                    articles.splice(indexArticle, 1, article)
+                    articles.splice(index, 1, article)
                     setArticles(articles)
                     setViewContent(false)
                     setViewContent(true)
@@ -99,8 +91,7 @@ const ArticleContent = () => {
                     setLiked(true)
                     article.correspondingLikes.push(res.data.like)
                     article.amountLikes += 1
-                    const indexArticle = articles.indexOf(articles.find(articleFind => articleFind.id === article.id))
-                    articles.splice(indexArticle, 1, article)
+                    articles.splice(index, 1, article)
                     setArticles(articles)
                     setViewContent(false)
                     setViewContent(true)
