@@ -51,7 +51,10 @@ const SideBar = () => {
                 {   
                     renderArticles.length > 0 ?
                     renderArticles.map(articleRender => (
-                        <li className={ article && article.id === articleRender.id ? 'selected' : '' } key={articleRender.id}
+                        <li 
+                            className={ article && article.id === articleRender.id ? 'selected' : '' } 
+                            key={articleRender.id}
+                            title="Ver Artigo"
                             onClick={() => {
                                 setViewContent(true)
                                 setViewForm(false)
