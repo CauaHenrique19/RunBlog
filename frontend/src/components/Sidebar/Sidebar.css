@@ -27,7 +27,7 @@
     background: none;
     border: none;
     outline: none;
-    font-weight: 200;
+    font-weight: 500;
     color: white;
     font-size: 1.2rem;
     margin-right: 10px;
@@ -37,10 +37,30 @@
     color: white;
 }
 .sidebar h1{
-    margin: 15px 25px 25px 25px;
+    margin: 15px 25px 10px 25px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.178);
     padding-bottom: 15px;
     font-weight: 700;
+}
+.search-value{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: fit-content;
+    background-color: white;
+    border-radius: 50px;
+    margin: 0 25px 15px 25px;
+    padding: 5px 15px;
+}
+.search-value p{
+    color: black;
+    margin-right: 20px;
+    font-weight: 500;
+}
+.search-value ion-icon{
+    color: black;
+    cursor: pointer;
+    margin: 0;
 }
 .sidebar ul{
     width: 100%;
@@ -70,6 +90,21 @@
 .sidebar li.selected{
     background-color: rgba(0, 0, 0, 0.192);
     box-shadow: 0px 0px 26px 0px rgba(137, 43, 226, 0.342);
+}
+.warning{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-self: center;
+    justify-content: center;
+    text-align: center;
+    width: 200px;
+    margin: 50px 25px 0px 50px;
+}
+.warning ion-icon{
+    color: red;
+    font-size: 3.5rem;
+    margin-bottom: 5px;
 }
 @media(max-width: 1400px){
     .sidebar{
