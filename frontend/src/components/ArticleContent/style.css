@@ -204,6 +204,14 @@
 .coment .header-coment{
     display: flex;
     align-items: center;
+    justify-content: space-between;
+}
+.left{
+    display: flex;
+}
+.header-coment ion-icon{
+    color: black;
+    cursor: pointer;
 }
 .header-coment h1, .header-coment p{
     color: black;

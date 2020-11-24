@@ -65,6 +65,20 @@ const ArticleContent = () => {
             .catch(error => console.log(error))
     }
 
+    function handleDeleteComent(comentId){
+        api.delete(`comments/${comentId}`, headers)
+            .then(res => {
+                const comentIndex = article.correspondingComments.indexOf(article.correspondingComments.find(comentFind => comentFind.id === comentId))
+                article.correspondingComments.splice(comentIndex, 1)
+                article.amountComments -= 1
+                articles.splice(index, 1, article)
+                setArticles(articles)
+                setViewContent(false)
+                setViewContent(true)
+            })
+            .catch(error => console.log(error))
+    }
+
     function handleLike() {
         const like = {
             userId: user.id,
@@ -165,11 +179,19 @@ const ArticleContent = () => {
                         <div key={coment.id} className={ coment.userId === user.id ? 'coment my' : 'coment' }>
                             <div className="coment">
                                 <div className="header-coment">
-                                    <img src={userImage} alt={coment.userName} className="img-user" />
-                                    <div className="info-coment">
-                                        <h1>{coment.userName}</h1>
-                                        <p>{coment.createdAt}</p>
+                                    <div className="left">
+                                        <img src={userImage} alt={coment.userName} className="img-user" />
+                                        <div className="info-coment">
+                                            <h1>{coment.userName}</h1>
+                                            <p>{coment.createdAt}</p>
+                                        </div>
                                     </div>
+                                    {
+                                        coment.userId === user.id &&
+                                        <div className="right" onClick={() => handleDeleteComent(coment.id)}>
+                                            <ion-icon name="trash-outline"></ion-icon>
+                                        </div>
+                                    }
                                 </div>
                                 <div className="content-coment">
                                     <p>{coment.content}</p>
