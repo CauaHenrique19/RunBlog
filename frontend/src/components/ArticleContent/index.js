@@ -84,12 +84,12 @@ const ArticleContent = () => {
             userId: user.id,
             articleId: article.id
         }
-        const isLiked = article.correspondingLikes.find(like => like.userId === user.id)
+        const myLike = article.correspondingLikes.find(like => like.userId === user.id)
         if(liked){
-            api.delete(`likes/${isLiked.id}`, headers)
-                .then(res => {
-                    setLiked(false)
-                    const indexLike = article.correspondingLikes.indexOf(isLiked)
+            api.delete(`likes/${myLike.id}`, headers)
+            .then(res => {
+                setLiked(false)
+                    const indexLike = article.correspondingLikes.indexOf(myLike)
                     article.correspondingLikes.splice(indexLike, 1)
                     article.amountLikes -= 1
                     articles.splice(index, 1, article)
