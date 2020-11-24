@@ -14,8 +14,9 @@ const SideBar = () => {
     }, [articles])
 
     function handleSearch(e){
-        const searchedArticles = articles.filter(articleFind => articleFind.title.toLowerCase().includes(e.target.value.toLowerCase()))
-        setSearchValue(e.target.value.toLowerCase())
+        let search = e.target.value.toLowerCase()
+        const searchedArticles = articles.filter(articleFind => articleFind.title.toLowerCase().includes(search))
+        setSearchValue(search)
         setRenderArticles(searchedArticles)
     }
 
