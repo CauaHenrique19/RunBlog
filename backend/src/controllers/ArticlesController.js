@@ -13,7 +13,7 @@ class Articles {
 
         const comments = await knex('comments')
             .select('comments.id', 'comments.articleId', 'users.id as userId', 
-                    'users.name as userName','comments.content', 'comments.createdAt')
+                    'users.name as userName', 'comments.content', 'comments.createdAt')
             .join('users', 'comments.userId', '=', 'users.id')
 
         const likes = await knex('likes')
