@@ -1,0 +1,38 @@
+.sidebar-admin{
+    width: 250px;
+    height: 100%;
+    background-color: #282A36;
+    border-right: 2px solid blueviolet;
+}
+.sidebar-admin ul{
+    width: 100%;
+}
+.sidebar-admin li ion-icon{
+    color: #fafafa;
+    margin-right: 15px;
+}
+.sidebar-admin li{
+    height: 50px;
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+
+    color: #fafafa;
+    padding-left: 15px;
+    cursor: pointer;
+
+    font-weight: 500;
+}
+.sidebar-admin li:hover{
+    background-color: rgba(0, 0, 0, 0.137);
+}
+.sidebar-admin li.selected{
+    background-color: rgba(0, 0, 0, 0.37);
+    border-left: 3px solid blueviolet;
+    color: blueviolet;
+    font-weight: 700;
+}
+.sidebar-admin li.selected ion-icon{
+    color: blueviolet;
+}

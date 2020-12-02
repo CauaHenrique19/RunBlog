@@ -1,0 +1,54 @@
+.stat{
+    background-color: white;
+    border-radius: 5px;
+    width: 25%;
+    height: 100%;
+    margin-right: 15px;
+    box-shadow: 0px 0px 16px 0px rgba(231, 231, 231, 0.295);
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 15px 0 0 25px;
+    border: 1px solid rgba(238, 238, 238, 0.418);
+}
+.stat:last-child{
+    margin-right: 0;
+}
+.stat h2{
+    font-weight: 300;
+    color: black;
+}
+.stat .content{
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+}
+.stat .content ion-icon{
+    color: black;
+    font-size: 5rem;
+    margin-right: 20px;
+}
+.total-likes h1{
+    color: black;
+    font-size: 4rem;
+    font-weight: 100;
+}
+.total-likes .content ion-icon{
+    color: rgb(224, 0, 0);
+}
+.user-more-liked .info h2{
+    color: black;
+}
+.user-more-liked .info h2:nth-child(1){
+    font-weight: 500;
+}
+.user-more-liked .content ion-icon{
+    color: orange;
+}
+.last-like .content ion-icon{
+    color: green;
+}
+.article-more-liked .content ion-icon{
+    color: rgb(0, 204, 255);
+}

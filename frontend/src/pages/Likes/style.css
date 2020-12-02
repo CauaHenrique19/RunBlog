@@ -1,0 +1,138 @@
+.main-likes{
+    width: calc(100% - 250px);
+    max-height: 90vh;
+    height: 100%;
+    padding: 25px;
+    overflow: auto;
+}
+.main-header h1{
+    font-weight: 500;
+    color: black;
+}
+.stats{
+    width: 100%;
+    height: 150px;
+
+    display: flex;
+    align-items: center;
+
+    margin-top: 15px;
+}
+.main-container-likes{
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+}
+.header-likes{
+    width: 50%;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.header-likes h1{
+    color: black;
+}
+.header-likes button{
+    display: flex;
+    align-items: center;
+
+    border: none;
+    outline: none;
+    background-color: initial;
+    cursor: pointer;
+    height: 35px;
+    border-radius: 3px;
+
+    font-weight: 500;
+
+    padding: 0px 15px;
+    font-size: 1rem;
+
+    transition: all 0.2s;
+}
+.header-likes button ion-icon{
+    color: black;
+}
+.header-likes button:hover{
+    background-color: rgba(0, 0, 0, 0.164);
+}
+.likes-wrapper{
+    width: 100%;
+    height: 520px;
+    display: flex;
+}
+.likes-wrap, .chart-likes{
+    width: 50%;
+    height: 100%;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: 0px 0px 16px 0px rgba(231, 231, 231, 0.295);
+    border: 1px solid rgba(238, 238, 238, 0.418);
+}
+.likes-wrapper .likes-wrap{
+    margin-right: 15px;
+    overflow: auto;
+    box-shadow: none;
+    border: none;
+    background-color: initial;
+    padding-right: 5px;
+}
+.likes-wrapper .likes-wrap::-webkit-scrollbar{
+    width: 7px;
+    background-color: rgb(226, 226, 226);
+}
+.likes-wrapper .likes-wrap::-webkit-scrollbar-thumb{
+    background-color: black;
+    border-radius: 50px;
+}
+.like{
+    width: 100%;
+    height: 100px;
+    background-color: white;
+    border-radius: 5px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0px 15px;
+    margin-bottom: 10px;
+}
+.like:last-child{
+    margin-bottom: 0;
+}
+.like .img-user{
+    width: 65px;
+    height: 65px;
+    border-radius: 100%;
+    margin-right: 20px;
+}
+.like .info{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.like h2{
+    color: black;
+}
+.like h2:nth-child(2){
+    font-weight: 300;
+}
+.like .info-article{
+    display: flex;
+    align-items: center;
+}
+.like .info-article h2{
+    width: 150px;
+}
+.like .img-article{
+    width: 130px;
+    height: 65px;
+    border-radius: 5px;
+}
+.chart-likes{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
