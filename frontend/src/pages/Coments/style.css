@@ -1,0 +1,139 @@
+.main-coments{
+    width: calc(100% - 250px);
+    max-height: 90vh;
+    height: 100%;
+    padding: 25px;
+    overflow: auto;
+}
+.main-header h1{
+    font-weight: 500;
+    color: black;
+}
+.stats{
+    width: 100%;
+    height: 150px;
+
+    display: flex;
+    align-items: center;
+
+    margin-top: 15px;
+}
+.main-container-coments{
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+}
+.header-coments{
+    width: 50%;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.header-coments h1{
+    color: black;
+}
+.header-coments button{
+    display: flex;
+    align-items: center;
+
+    border: none;
+    outline: none;
+    background-color: initial;
+    cursor: pointer;
+    height: 35px;
+    border-radius: 3px;
+
+    font-weight: 500;
+
+    padding: 0px 15px;
+    font-size: 1rem;
+
+    transition: all 0.2s;
+}
+.header-coments button ion-icon{
+    color: black;
+}
+.header-coments button:hover{
+    background-color: rgba(0, 0, 0, 0.164);
+}
+.coments-wrapper{
+    width: 100%;
+    height: 520px;
+    display: flex;
+}
+.coments-wrap, .chart-coments{
+    width: 50%;
+    height: 100%;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: 0px 0px 16px 0px rgba(231, 231, 231, 0.295);
+    border: 1px solid rgba(238, 238, 238, 0.418);
+}
+.coments-wrap{
+    margin-right: 15px;
+    overflow: auto;
+    box-shadow: none;
+    border: none;
+    background-color: initial;
+    padding-right: 5px;
+}
+.coments-wrap::-webkit-scrollbar{
+    width: 7px;
+    background-color: rgb(226, 226, 226);
+}
+.coments-wrap::-webkit-scrollbar-thumb{
+    background-color: black;
+    border-radius: 50px;
+}
+.coment{
+    width: 100%;
+    height: auto;
+    background-color: white;
+    border-radius: 5px;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 15px;
+    margin-bottom: 10px;
+}
+.coment:last-child{
+    margin-bottom: 0;
+}
+.coment .img-user{
+    width: 65px;
+    height: 65px;
+    border-radius: 100%;
+    margin-right: 20px;
+}
+.coment .info{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.coment h2{
+    color: black;
+}
+.coment h2:nth-child(2){
+    font-weight: 300;
+}
+.coment .info-like{
+    display: flex;
+}
+.coment .info-article{
+    display: flex;
+    align-items: center;
+}
+.coment .info-article h2{
+    width: 150px;
+}
+.coment .img-article{
+    width: 130px;
+    height: 65px;
+    border-radius: 5px;
+}
+.coment .content{
+    margin-top: 15px;
+}

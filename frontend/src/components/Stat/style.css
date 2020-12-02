@@ -29,26 +29,26 @@
     font-size: 5rem;
     margin-right: 20px;
 }
-.total-likes h1{
+.total-likes h1, .total-coments h1{
     color: black;
     font-size: 4rem;
     font-weight: 100;
 }
-.total-likes .content ion-icon{
+.total-likes .content ion-icon, .total-coments .content ion-icon{
     color: rgb(224, 0, 0);
 }
 .user-more-liked .info h2{
     color: black;
 }
-.user-more-liked .info h2:nth-child(1){
+.user-more-liked .info h2:nth-child(1), .user-more-comented .info h2:nth-child(1){
     font-weight: 500;
 }
-.user-more-liked .content ion-icon{
+.user-more-liked .content ion-icon, .user-more-comented .content ion-icon{
     color: orange;
 }
-.last-like .content ion-icon{
+.last-like .content ion-icon, .last-coment .content ion-icon{
     color: green;
 }
-.article-more-liked .content ion-icon{
+.article-more-liked .content ion-icon, .article-more-comented .content ion-icon{
     color: rgb(0, 204, 255);
 }
