@@ -54,13 +54,13 @@ const Header = () => {
                             <div className="options" onMouseLeave={() => setViewOptions(false)}>
                                 <ul>
                                     <li>
-                                        <Link>
+                                        <Link to="/likes" >
                                             <ion-icon name="heart-outline"></ion-icon>
                                             <h3>Curtidas</h3>
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link>
+                                        <Link to="/coments" >
                                             <ion-icon name="chatbox-outline"></ion-icon>
                                             <h3>Comentários</h3>
                                         </Link>
