@@ -7,7 +7,6 @@ import SidebarAdmin from '../../components/SidebarAdmin'
 import Stat from '../../components/Stat'
 
 import imageUser from '../../assets/default-user-image.png'
-import articleImage from '../../assets/pexels-c-cagnin-1959065.jpg'
 import './style.css'
 
 const Coments = () => {
