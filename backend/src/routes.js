@@ -38,8 +38,8 @@ routes.get('/likes/stats', admin(auth(likes.stats)))
 
 routes.get('/comments', auth(comments.index))
 routes.post('/comments', auth(comments.create))
-routes.delete('/comments/:id', auth(comments.delete))
+routes.delete('/comments/:id(\\d+)', auth(comments.delete))
 
-//routes.get('/comments/stats', admin(auth(comments.stats)))
+routes.get('/comments/stats', admin(auth(comments.stats)))
 
 module.exports = routes

@@ -16,6 +16,60 @@ class Comments{
 
         res.json(comments)
     }
+    async stats(req, res){
+
+        const totalComents = await knex('comments')
+            .count('id as total')
+
+        const userMostComented = await knex('comments')
+            .count('userId as amountComments')
+            .select('userId', 'users.name')
+            .join('users', 'userId', 'users.id')
+            .groupBy('userId', 'users.name', 'users.email')
+            .limit(1)
+
+        delete userMostComented[0].userId
+
+        const lastComment = await knex('comments')
+            .select('comments.id', 'comments.createdAt', 'comments.content', 'users.name')
+            .join('users', 'users.id', 'comments.userId')
+            .orderBy('id', 'desc')
+            .limit(1)
+
+        lastComment[0].createdAt = formatDataAndHour(lastComment[0].createdAt)
+        delete lastComment[0].id
+
+        const articleMostComented = await knex('comments')
+            .count('articleId as amountLikes')
+            .select('articles.title', 'articleId')
+            .join('articles', 'articles.id', 'articleId')
+            .groupBy('articleId', 'articles.title')
+            .orderBy('amountLikes', 'desc')
+            .limit(1)
+
+        delete articleMostComented[0].articleId
+
+        const commentsPerDay = await knex.raw(`
+            select
+                date_trunc('day', "createdAt") as "day",
+                count(1) as amount
+            from comments
+            group by 1
+            order by "day"
+        `)
+
+        commentsPerDay.rows.map(row => row.day = `${row.day.getDate()}/${row.day.getMonth()}/${row.day.getFullYear()}`)
+
+        const stat = {
+            totalComents: totalComents[0].total,
+            userMostComented: userMostComented[0],
+            lastComment: lastComment[0],
+            articleMostComented: articleMostComented[0],
+            commentsPerDay: commentsPerDay.rows
+        }
+
+        res.json(stat)
+    }
     async create(req, res){
         const { userId, articleId, content } = req.body
 
