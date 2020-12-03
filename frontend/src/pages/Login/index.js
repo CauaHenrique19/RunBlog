@@ -1,10 +1,9 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { useHistory, Link } from 'react-router-dom'
-
 import api from '../../services/api'
+import { Context } from '../../context/context'
 
 import Message from '../../components/Message'
-import { Context } from '../../context/context'
 
 import logo from '../../assets/logo.png'
 import './style.css'
@@ -43,13 +42,13 @@ const Login = () => {
         setTimeout(() => {
             setMessage('')
         }, 5000)
-    }, [message])
+    }, [message, setMessage])
     
     return (
         <div className="login">
             <div className="form-container">
                 <img src={logo} alt="RunBlog" className="login-logo" />
-                { message && <Message  /> }
+                { message && <Message error /> }
                 <form onSubmit={handleLogin}>
                     <div className="email-container">
                         <label htmlFor="email">E-mail</label>
