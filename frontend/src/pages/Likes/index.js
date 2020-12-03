@@ -1,14 +1,30 @@
-import React from 'react'
+import React, { useEffect, useState, useContext } from 'react'
+import { Context } from '../../context/context'
+import api from '../../services/api'
 
 import Header from '../../components/Header'
 import SidebarAdmin from '../../components/SidebarAdmin'
 import Stat from '../../components/Stat'
 
 import imageUser from '../../assets/default-user-image.png'
-import articleImage from '../../assets/pexels-c-cagnin-1959065.jpg'
 import './style.css'
 
 const Likes = () => {
+
+    const { headers } = useContext(Context)
+    const [stats, setStats] = useState({})
+    const [likes, setLikes] = useState([]) 
+
+    useEffect(() => {
+        api.get('likes/stats', headers)
+            .then(res => setStats(res.data))
+            .catch(error => console.log(error))
+
+        api.get('likes', headers)
+            .then(res => setLikes(res.data))
+            .catch(error => console.log(error))
+    }, [headers])
+
     return (
         <div>
             <Header />
@@ -24,7 +40,7 @@ const Likes = () => {
                             <div className="content">
                                 <ion-icon name="heart"></ion-icon>
                                 <div className="info">
-                                    <h1>150</h1>
+                                    <h1>{stats.totalLikes}</h1>
                                 </div>
                             </div>
                         </Stat>
@@ -33,8 +49,13 @@ const Likes = () => {
                             <div className="content">
                                 <ion-icon name="people"></ion-icon>
                                 <div className="info">
-                                    <h2>Claudinei</h2>
-                                    <h2>16 Curtidas</h2>
+                                    {
+                                        stats.userMostLiked ? 
+                                        <div>
+                                            <h2>{stats.userMostLiked.name}</h2>
+                                            <h2>{stats.userMostLiked.amountLikes} Curtidas</h2>
+                                        </div> : ''
+                                    }
                                 </div>
                             </div>
                         </Stat>
@@ -43,8 +64,13 @@ const Likes = () => {
                             <div className="content">
                                 <ion-icon name="heart-circle"></ion-icon>
                                 <div className="info">
-                                    <h2>Claudinei</h2>
-                                    <h2>02/12/2020 às 11:56</h2>
+                                    {
+                                        stats.lastLike ? 
+                                        <div>
+                                            <h2>{stats.lastLike.name}</h2>
+                                            <h2>{stats.lastLike.createdAt}</h2>
+                                        </div> : ''
+                                    }
                                 </div>
                             </div>
                         </Stat>
@@ -53,8 +79,13 @@ const Likes = () => {
                             <div className="content">
                                 <ion-icon name="add-circle"></ion-icon>
                                 <div className="info">
-                                    <h2>Maratona 21KM</h2>
-                                    <h2>132 Curtidas</h2>
+                                    {
+                                        stats.articleMostLiked ? 
+                                        <div>
+                                            <h2>{stats.articleMostLiked.title}</h2>
+                                            <h2>{stats.articleMostLiked.amountLikes} Curtidas</h2>
+                                        </div> : ''
+                                    }
                                 </div>
                             </div>
                         </Stat>
@@ -68,32 +99,24 @@ const Likes = () => {
                         </div>
                         <div className="likes-wrapper">
                             <div className="likes-wrap">
-                                <div className="like">
-                                    <img className="img-user" src={imageUser} alt="" />
-                                    <div className="info">
-                                        <div className="info-like">
-                                            <h2>Claudinei</h2>
-                                            <h2>02/12/2020 às 11:56</h2>
+                                {
+                                    likes &&
+                                    likes.map(like => (
+                                        <div className="like">
+                                            <img className="img-user" src={imageUser} alt="" />
+                                            <div className="info">
+                                                <div className="info-like">
+                                                    <h2>{like.userName}</h2>
+                                                    <h2>{like.createdAt}</h2>
+                                                </div>
+                                                <div className="info-article">
+                                                    <h2>{like.titleArticle}</h2>
+                                                    <img className="img-article" src={like.imageUrl} alt={like.titleArticle} />
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div className="info-article">
-                                            <h2>Maratona 21km</h2>
-                                            <img className="img-article" src={articleImage} alt="" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="like">
-                                    <img className="img-user" src={imageUser} alt="" />
-                                    <div className="info">
-                                        <div className="info-like">
-                                            <h2>Claudinei</h2>
-                                            <h2>02/12/2020 às 11:56</h2>
-                                        </div>
-                                        <div className="info-article">
-                                            <h2>Maratona 21km</h2>
-                                            <img className="img-article" src={articleImage} alt="" />
-                                        </div>
-                                    </div>
-                                </div>
+                                    ))
+                                }
                             </div>
                             <div className="chart-likes"></div>
                         </div>
