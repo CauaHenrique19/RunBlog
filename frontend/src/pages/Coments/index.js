@@ -86,7 +86,7 @@ const Coments = () => {
                                         stats.articleMostComented && 
                                         <div>
                                             <h2>{stats.articleMostComented.title}</h2>
-                                            <h2>{stats.articleMostComented.amountLikes} Comentários</h2>
+                                            <h2>{stats.articleMostComented.amountComments} Comentários</h2>
                                         </div>
                                     }
                                 </div>
