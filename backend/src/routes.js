@@ -30,12 +30,16 @@ routes.put('/articles/:id', admin(auth(articles.update)))
 routes.delete('/articles/:id', admin(auth(articles.delete)))
 
 routes.get('/likes', auth(likes.index))
-routes.get('/likes/:userId', auth(likes.show))
+routes.get('/likes/:userId(\\d+)', auth(likes.show))
 routes.post('/likes', auth(likes.create))
-routes.delete('/likes/:id', auth(likes.delete))
+routes.delete('/likes/:id(\\d+)', auth(likes.delete))
+
+routes.get('/likes/stats', admin(auth(likes.stats)))
 
 routes.get('/comments', auth(comments.index))
 routes.post('/comments', auth(comments.create))
 routes.delete('/comments/:id', auth(comments.delete))
+
+//routes.get('/comments/stats', admin(auth(comments.stats)))
 
 module.exports = routes
