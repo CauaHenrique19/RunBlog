@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { useState, useEffect, useContext } from 'react'
+import { Context } from '../../context/context'
+import api from '../../services/api'
 
 import Header from '../../components/Header'
 import SidebarAdmin from '../../components/SidebarAdmin'
@@ -9,6 +11,21 @@ import articleImage from '../../assets/pexels-c-cagnin-1959065.jpg'
 import './style.css'
 
 const Coments = () => {
+
+    const { headers } = useContext(Context)
+    const [stats, setStats] = useState({})
+    const [comments, setComments] = useState([])
+
+    useEffect(() => {
+        api.get('comments/stats', headers)
+            .then(res => setStats(res.data))
+            .catch(error => console.log(error))
+
+        api.get('comments', headers)
+            .then(res => setComments(res.data))
+            .catch(error => console.log(error))
+    }, [headers])
+
     return (
         <div>
             <Header />
@@ -24,7 +41,10 @@ const Coments = () => {
                             <div className="content">
                                 <ion-icon name="chatbox"></ion-icon>
                                 <div className="info">
-                                    <h1>150</h1>
+                                    {
+                                        stats.totalComents &&
+                                        <h1>{stats.totalComents}</h1>
+                                    }
                                 </div>
                             </div>
                         </Stat>
@@ -33,8 +53,13 @@ const Coments = () => {
                             <div className="content">
                                 <ion-icon name="people"></ion-icon>
                                 <div className="info">
-                                    <h2>Claudinei</h2>
-                                    <h2>16 Comentários</h2>
+                                    {
+                                        stats.userMostComented && 
+                                        <div>
+                                            <h2>{stats.userMostComented.name}</h2>
+                                            <h2>{stats.userMostComented.amountComments} Comentários</h2>
+                                        </div>
+                                    }
                                 </div>
                             </div>
                         </Stat>
@@ -43,8 +68,13 @@ const Coments = () => {
                             <div className="content">
                                 <ion-icon name="chatbubbles"></ion-icon>
                                 <div className="info">
-                                    <h2>Claudinei</h2>
-                                    <h2>02/12/2020 às 11:56</h2>
+                                    {
+                                        stats.lastComment && 
+                                        <div>
+                                            <h2>{stats.lastComment.name}</h2>
+                                            <h2>{stats.lastComment.createdAt}</h2>
+                                        </div>
+                                    }
                                 </div>
                             </div>
                         </Stat>
@@ -53,8 +83,13 @@ const Coments = () => {
                             <div className="content">
                                 <ion-icon name="add-circle"></ion-icon>
                                 <div className="info">
-                                    <h2>Maratona 21KM</h2>
-                                    <h2>132 Comentários</h2>
+                                    {
+                                        stats.articleMostComented && 
+                                        <div>
+                                            <h2>{stats.articleMostComented.title}</h2>
+                                            <h2>{stats.articleMostComented.amountLikes} Comentários</h2>
+                                        </div>
+                                    }
                                 </div>
                             </div>
                         </Stat>
@@ -69,30 +104,27 @@ const Coments = () => {
                         <div className="coments-wrapper">
                             <div className="coments-wrap">
                                 <div className="coments">
-                                    <div class="coment">
-                                        <div class="info">
-                                            <div class="info-like">
-                                                <img class="img-user" src={imageUser} alt="" />
-                                                <div>
-                                                    <h2>Claudinei</h2>
-                                                    <h2>02/12/2020 às 11:56</h2>
+                                    {
+                                        comments &&
+                                        comments.map(coment => (
+                                            <div class="coment">
+                                                <div class="info">
+                                                    <div class="info-like">
+                                                        <img class="img-user" src={imageUser} alt="" />
+                                                        <div>
+                                                            <h2>{coment.userName}</h2>
+                                                            <h2>{coment.createdAt}</h2>
+                                                        </div>
+                                                    </div>
+                                                    <div class="info-article">
+                                                        <h2>{coment.titleArticle}</h2>
+                                                        <img class="img-article" src={coment.imageUrl} alt="" />
+                                                    </div>
                                                 </div>
+                                                <div class="content">{coment.content}</div>
                                             </div>
-                                            <div class="info-article">
-                                                <h2>Maratona 21km</h2>
-                                                <img class="img-article" src={articleImage} alt="" />
-                                            </div>
-                                        </div>
-                                        <div class="content">
-                                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-                                            has been the industry's standard dummy text ever since the 1500s, when an unknown
-                                            printer took a galley of type and scrambled it to make a type specimen book. It has
-                                            survived not only five centuries, but also the leap into electronic typesetting,
-                                            remaining essentially unchanged. It was popularised in the 1960s with the release of
-                                            Letraset sheets containing Lorem Ipsum passages, and more recently with desktop
-                                            publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                                        </div>
-                                    </div>
+                                        ))
+                                    }
                                 </div>
                             </div>
                             <div className="chart-coments"></div>
