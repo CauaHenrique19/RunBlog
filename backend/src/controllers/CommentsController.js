@@ -40,11 +40,11 @@ class Comments{
         delete lastComment[0].id
 
         const articleMostComented = await knex('comments')
-            .count('articleId as amountLikes')
+            .count('articleId as amountComments')
             .select('articles.title', 'articleId')
             .join('articles', 'articles.id', 'articleId')
             .groupBy('articleId', 'articles.title')
-            .orderBy('amountLikes', 'desc')
+            .orderBy('amountComments', 'desc')
             .limit(1)
 
         delete articleMostComented[0].articleId
